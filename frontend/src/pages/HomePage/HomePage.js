@@ -7,6 +7,7 @@ import keys from "../../API_Keys.json"
 import "./HomePage.css"
 import MovieList from "../../components/MovieList/MovieList";
 
+
 const HomePage = () => {
   // The "user" value from this Hook contains the decoded logged in user information (username, first name, id)
   // The "token" value is the JWT token that you will send in the header of any request requiring authentication
@@ -63,7 +64,7 @@ const HomePage = () => {
   }, [token]);
 
 
-
+  
 
   return (
     <div className="container-fluid movie-list">
@@ -72,6 +73,7 @@ const HomePage = () => {
       <div className="row">
         <MovieList movies={popMovies} />
       </div>
+      
       <br />
       <h1>Coming Soon</h1>
       <div className="row">
