@@ -1,3 +1,10 @@
+/* *{
+    -ms-overflow-style: none;
+}
+::-webkit-scrollbar {
+    display: none;
+    //hides scroll bar//
+} */
 .movie-poster{
     max-width: 200px;
     max-height: 300px;
