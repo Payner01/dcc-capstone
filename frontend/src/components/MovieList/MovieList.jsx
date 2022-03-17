@@ -21,12 +21,7 @@ const MovieList = (props) => {
 
     console.log(modalData); // shows data of selected movie
 
-    function toggleModal() {
-        
-        setCentredModal(!centredModal);
-        // toggleShow();
-        console.log(modalData);
-    }
+    
 
     function setData(movie) {
         setModalData(movie);
@@ -83,20 +78,6 @@ const MovieList = (props) => {
                                     </MDBBtn>
                                     <MDBBtn>Save changes</MDBBtn>
                                     </MDBModalFooter>
-                                    {/* <MDBModalHeader>
-                                        <MDBModalTitle>{modalData.title}</MDBModalTitle>
-                                        <MDBBtn className='btn-close' color='none' onClick={toggleModal}>????</MDBBtn>
-                                    </MDBModalHeader>
-                                    <MDBModalBody>
-                                        <p>
-                                        </p>
-                                    </MDBModalBody>
-                                    <MDBModalFooter>
-                                        <MDBBtn color='secondary' onClick={toggleModal}>
-                                            Close
-                                        </MDBBtn>
-                                        <MDBBtn>Save changes</MDBBtn>
-                                    </MDBModalFooter> */}
                                 </MDBModalContent>
                             </MDBModalDialog>
                         </MDBModal>
