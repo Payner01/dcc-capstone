@@ -7,6 +7,7 @@ import HomePage from "./pages/HomePage/HomePage";
 import LoginPage from "./pages/LoginPage/LoginPage";
 import RegisterPage from "./pages/RegisterPage/RegisterPage";
 import SearchPage from "./pages/SearchPage/SearchPage"
+import ProfilePage from "./pages/ProfilePage/ProfilePage";
 
 // Component Imports
 import Navbar from "./components/NavBar/NavBar";
@@ -29,6 +30,7 @@ function App() {
 
 
         <Route path="/search" element={<PrivateRoute> <SearchPage /> </PrivateRoute>}/>
+        <Route path="/profile" element={<PrivateRoute><ProfilePage /></PrivateRoute>}/>
 
 
         <Route path="/register" element={<RegisterPage />} />

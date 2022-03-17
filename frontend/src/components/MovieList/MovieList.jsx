@@ -39,7 +39,7 @@ const MovieList = (props) => {
        
                 <div className="row">
 
-                    {props.movies.slice(0, 10).map((movie, index) => (
+                    {props.movies.slice(0, 20).map((movie, index) => (
                             
                             <img onClick={() => getMovieDetails(movie)} key={index} className="movie-poster" src={movie.image} alt='movie'></img>
                                
@@ -66,6 +66,7 @@ const MovieList = (props) => {
                                         </div>
                                         <div className='row'>
                                             <div>{modalData.plot}</div>
+                                            <div><iframe src={modalData.trailer.linkEmbed}></iframe></div>
                                         </div>
                                         
                                     </div>

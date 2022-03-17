@@ -3,8 +3,8 @@ import { useEffect, useState } from "react";
 import "react-bootstrap"
 import axios from "axios";
 import useAuth from "../../hooks/useAuth";
-import keys from "../../API_Keys.json"
-import "./HomePage.css"
+import keys from "../../API_Keys.json";
+import "./HomePage.css";
 import MovieList from "../../components/MovieList/MovieList";
 
 
@@ -15,7 +15,7 @@ const HomePage = () => {
   const [cars, setCars] = useState([]);
   const [popMovies, setPopMovies] = useState([]);
   const [comingSoon, setComingSoon] = useState([]);
-  
+
 
     useEffect(() => {
     const getPopularMovies = async () => {
@@ -43,7 +43,7 @@ const HomePage = () => {
         console.log(error.message);
       }
     };
-    // getComingSoon();
+    getComingSoon();
     getPopularMovies();
   }, [token]);
 
