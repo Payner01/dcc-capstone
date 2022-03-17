@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import './MovieList.css'
+import keys from "../../API_Keys.json"
+import axios from 'axios';
 
 import { MDBBtn,
     MDBModal,
@@ -19,24 +21,19 @@ const MovieList = (props) => {
     const [modalData, setModalData] = useState(null);
     const toggleShow = () => setCentredModal(!centredModal);
 
-    console.log(modalData); // shows data of selected movie
+    // console.log(modalData); // shows data of selected movie
 
-    
-
-    function setData(movie) {
-        setModalData(movie);
+    async function getMovieDetails(movie) {
+        let response = await axios.get(`https://imdb-api.com/en/API/Title/${keys.IMDb_APIKey}/${movie.id}/FullActor,FullCast,Posters,Images,Trailer,Ratings`)
+        setModalData(response.data);
+        console.log(response.data);
         setCentredModal(movie);
-        setSelectedMovieBool(true)
+        setSelectedMovieBool(true);
         
     }
 
-//    if(word == "Yes"){
-
-//    }
-
 //    word=="yes" ? console.log(true) : console.log(false)
     
-
     return (  
         <div className="container-fluid movie-list">
        
@@ -44,11 +41,9 @@ const MovieList = (props) => {
 
                     {props.movies.slice(0, 10).map((movie, index) => (
                             
-                            <img onClick={() => setData(movie)} key={index} className="movie-poster" src={movie.image} alt='movie'></img>
-                            
-                            
+                            <img onClick={() => getMovieDetails(movie)} key={index} className="movie-poster" src={movie.image} alt='movie'></img>
+                               
                     ))}
-                    {}
                     <>
                     {movieSelected?
                             <MDBModal tabIndex='-1' show={centredModal} setShow={setCentredModal}>
@@ -66,10 +61,13 @@ const MovieList = (props) => {
                                     <MDBModalBody>
                                     <div className='container-fluid bd-example-row'>
                                         <div className='row'>
-                                            <div className='col-md-4' ><img style={{width: 300, height: 450}} src={modalData.image} alt="" /></div>
+                                            <div className='col-md-4' ><img style={{width: 300, height: 450}} src={modalData.posters.posters[0].link} alt="" /></div>
                                             <div className='col-md-4 ms-auto'><h2>{modalData.title}</h2></div>
                                         </div>
-                                        <div className='col-md-2'>{modalData.plot}</div>
+                                        <div className='row'>
+                                            <div>{modalData.plot}</div>
+                                        </div>
+                                        
                                     </div>
                                     </MDBModalBody>
                                     <MDBModalFooter>

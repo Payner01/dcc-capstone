@@ -32,8 +32,10 @@ const SearchPage = (props) => {
         //     console.log(error.message);
         //   }
         // };
+
+    
         
-    async function setSearchTerm(results) {
+    function setSearchTerm(results) {
         setSearchList(results);
         setSelectedMovieBool(true);
     }

@@ -15,23 +15,7 @@ const HomePage = () => {
   const [cars, setCars] = useState([]);
   const [popMovies, setPopMovies] = useState([]);
   const [comingSoon, setComingSoon] = useState([]);
-
-
-  // useEffect(() => {
-  //   const fetchCars = async () => {
-  //     try {
-  //       let response = await axios.get("http://127.0.0.1:8000/api/cars/", {
-  //         headers: {
-  //           Authorization: "Bearer " + token,
-  //         },
-  //       });
-  //       setCars(response.data);
-  //     } catch (error) {
-  //       console.log(error.message);
-  //     }
-  //   };
-  //   fetchCars();
-  // }, [token]);
+  
 
     useEffect(() => {
     const getPopularMovies = async () => {
@@ -59,12 +43,12 @@ const HomePage = () => {
         console.log(error.message);
       }
     };
-    getComingSoon();
+    // getComingSoon();
     getPopularMovies();
   }, [token]);
 
 
-  
+
 
   return (
     <div className="container-fluid movie-list">

@@ -7,7 +7,7 @@ import  Button  from 'react-bootstrap/Button';
 const SearchBar = (props) => {
 
     const [searchTerm, setSearchTerm] = useState('');
-    const [searchResults, setSearchResults] = useState([]);
+
 
     function handleSubmit(event) {
         event.preventDefault();
@@ -17,9 +17,8 @@ const SearchBar = (props) => {
 
     async function searchMovie(searchTerm){
         let response = await axios.get(`https://imdb-api.com/en/API/SearchMovie/${keys.IMDb_APIKey}/${searchTerm}`)
-        setSearchResults(response.data.results)
         console.log(response.data.results)
-        props.setSearch(searchResults);
+        props.setSearch(response.data.results);
     }
 
     return ( 
