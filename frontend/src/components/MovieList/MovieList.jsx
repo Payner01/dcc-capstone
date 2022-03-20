@@ -17,9 +17,11 @@ import { MDBBtn,
 const MovieList = (props) => {
 
     const [centredModal, setCentredModal] = useState(false);
+    const [trailerModal, setTrailerModal] = useState(false);
     const[movieSelected, setSelectedMovieBool] = useState(false)
     const [modalData, setModalData] = useState(null);
     const toggleShow = () => setCentredModal(!centredModal);
+    const toggleVideo = () => setTrailerModal(!trailerModal)
 
     // console.log(modalData); // shows data of selected movie
 
@@ -46,40 +48,64 @@ const MovieList = (props) => {
                     ))}
                     <>
                     {movieSelected?
-                            <MDBModal tabIndex='-1' show={centredModal} setShow={setCentredModal}>
+                        <><MDBModal tabIndex='-1' show={centredModal} setShow={setCentredModal}>
                             <MDBModalDialog centered size='lg'>
                                 <MDBModalContent>
-                                <MDBModalHeader>
-                                    <MDBModalTitle>Grids in modals</MDBModalTitle>
-                                    <MDBBtn
-                                        type='button'
-                                        className='btn-close'
-                                        color='none'
-                                        onClick={toggleShow}
-                                    ></MDBBtn>
+                                    <MDBModalHeader>
+                                        <MDBModalTitle>Grids in modals</MDBModalTitle>
+                                        <MDBBtn
+                                            type='button'
+                                            className='btn-close'
+                                            color='none'
+                                            onClick={toggleShow}
+                                        ></MDBBtn>
                                     </MDBModalHeader>
                                     <MDBModalBody>
-                                    <div className='container-fluid bd-example-row'>
-                                        <div className='row'>
-                                            <div className='col-md-4' ><img style={{width: 300, height: 450}} src={modalData.posters.posters[0].link} alt="" /></div>
-                                            <div className='col-md-4 ms-auto'><h2>{modalData.title}</h2></div>
+                                        <div className='container-fluid '>
+                                            <div className='row'>
+                                                <div className='col'><img style={{ width: 300, height: 450 }} src={modalData.posters.posters[0].link} alt="" /></div>
+                                                <div className='col'>
+                                                    <h2 className='movie-title'>{modalData.title}</h2>
+                                                    <p className='movie-plot'>{modalData.plot}</p>
+                                                </div>
+                                            </div>
+                                            <MDBBtn onClick={toggleVideo}>trailer</MDBBtn>
                                         </div>
-                                        <div className='row'>
-                                            <div>{modalData.plot}</div>
-                                            <div><iframe src={modalData.trailer.linkEmbed}></iframe></div>
-                                        </div>
-                                        
-                                    </div>
                                     </MDBModalBody>
                                     <MDBModalFooter>
-                                    <MDBBtn color='secondary' onClick={toggleShow}>
-                                        Close
-                                    </MDBBtn>
-                                    <MDBBtn>Save changes</MDBBtn>
+                                        <MDBBtn color='secondary' onClick={toggleShow}>
+                                            Close
+                                        </MDBBtn>
+                                        <MDBBtn>Save changes</MDBBtn>
                                     </MDBModalFooter>
                                 </MDBModalContent>
                             </MDBModalDialog>
-                        </MDBModal>
+                        </MDBModal><MDBModal tabIndex='-1' show={trailerModal} setShow={setTrailerModal}>
+                                <MDBModalDialog centered size='xl'>
+                                    <MDBModalContent>
+                                        <MDBModalHeader>
+                                            <MDBModalTitle>{modalData.title}</MDBModalTitle>
+                                            <MDBBtn
+                                                type='button'
+                                                className='btn-close'
+                                                color='none'
+                                                onClick={toggleVideo}
+                                            ></MDBBtn>
+                                        </MDBModalHeader>
+                                        <MDBModalBody>
+                                            <div className='video-modal'>
+                                                    <div className='video-player'><iframe style={{ width: 1280, height: 720 }}src={modalData.trailer.linkEmbed}></iframe></div>
+                                                </div>
+                                        </MDBModalBody>
+                                        <MDBModalFooter>
+                                            <MDBBtn color='secondary' onClick={toggleVideo}>
+                                                Close
+                                            </MDBBtn>
+                                            
+                                        </MDBModalFooter>
+                                    </MDBModalContent>
+                                </MDBModalDialog>
+                            </MDBModal></>
                         :null}
                         </>
             </div>

@@ -12,3 +12,21 @@
     overflow-x: auto;
     flex-wrap: nowrap;
 }
+
+.video-modal{
+    display: flex;
+    align-items: right;
+}
+ .video-player{
+     
+     justify-content: center;
+     align-items: flex-start
+ }
+.movie-title{
+    display: flex;
+    font-size: xx-large;
+    justify-content: center;
+}
+.movie-plot{
+    font-size: medium;
+}
