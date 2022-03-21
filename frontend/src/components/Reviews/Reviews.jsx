@@ -1,7 +1,8 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import useAuth from '../../hooks/useAuth';
-
+import ReviewForm from '../ReviewForm/ReviewForm';
+import ReviewList from '../ReviewList/ReviewList';
 
 const Reviews = (props) => {
 
@@ -9,6 +10,7 @@ const Reviews = (props) => {
     const [movieReviews, setMovieReviews] = useState([]);
 
     console.log(props.movie.id)
+    console.log(props.movieReviews)
 
     async function getReviews(){
         let response = await axios.get(`http://127.0.0.1:8000/api/reviews/${props.movie.id}/reviews/`);
@@ -18,19 +20,13 @@ const Reviews = (props) => {
 
     useEffect(() => {
         getReviews();
-    }, [])
+    },[props.movie.id])
+    
 
     return ( 
-
         <div>
-            {movieReviews.map((review, index) => {
-                return (
-                    <div>
-                        <p>{user.username}</p>
-                        <p>{review.text}</p>
-                    </div>                                  
-                );
-            })}
+            <ReviewForm movie={props.movie} getReviews={getReviews} />
+            <ReviewList movieReviews={movieReviews}/>
         </div>
      );
 }

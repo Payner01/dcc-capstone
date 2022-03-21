@@ -24,7 +24,7 @@ const ReviewForm = (props) => {
 
         }
         postReview(newReview);
-      
+        
         
     }
 
@@ -33,14 +33,14 @@ const ReviewForm = (props) => {
     async function postReview(review){
         console.log(review)
         try {
-            let response = await axios.post(`http://127.0.0.1:8000/api/reviews/${props.movie.id}`, review, { headers: {Authorization: 'Bearer ' + token}});// add video string to path
+            let response = await axios.post(`http://127.0.0.1:8000/api/reviews/`, review, { headers: {Authorization: 'Bearer ' + token}});// add video string to path
             console.log(response);
             console.log(response.data);
 
         } catch (ex) {
             console.log(ex.response);
         }
-        // props.getComments(); //add way to get comments 
+        props.getReviews();
         
     }
 
@@ -58,7 +58,7 @@ const ReviewForm = (props) => {
             </React.Fragment>
             }
             <Form.Group  className="mb-3" controlId="formPlaintextPassword">
-                <Form.Label column sm="2">Comments</Form.Label>
+                <Form.Label column sm="2">Reviews</Form.Label>
                     <Col sm="10">
                         <Form.Control type="text" placeholder="Insert Review Here" onChange={(event) => setReview(event.target.value)} />
                     </Col>

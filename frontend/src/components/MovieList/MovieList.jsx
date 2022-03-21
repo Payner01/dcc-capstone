@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import './MovieList.css'
 import keys from "../../API_Keys.json"
 import axios from 'axios';
@@ -22,24 +22,45 @@ const MovieList = (props) => {
     const [centredModal, setCentredModal] = useState(false);
     const [trailerModal, setTrailerModal] = useState(false);
     const[movieSelected, setSelectedMovieBool] = useState(false)
-    const [modalData, setModalData] = useState(null);
+    const [movieId, setmovieId] = useState(null);
+    
     const toggleShow = () => setCentredModal(!centredModal);
-    const toggleVideo = () => setTrailerModal(!trailerModal)
-
-    // console.log(modalData); // shows data of selected movie
-
-    async function getMovieDetails(movie) {
-        let response = await axios.get(`https://imdb-api.com/en/API/Title/${keys.IMDb_APIKey}/${movie.id}/FullActor,FullCast,Posters,Images,Trailer,Ratings`)
-        setModalData(response.data);
-        console.log(response.data);
-        setCentredModal(movie);
-        setSelectedMovieBool(true);
-        
-    }
-
+    const toggleVideo = () => setTrailerModal(!trailerModal);
     
 
-//    word=="yes" ? console.log(true) : console.log(false)
+    console.log(movieId); // shows data of selected movie
+
+    async function getMovieDetails(movie) {
+         let response = await axios.get(`https://imdb-api.com/en/API/Title/${keys.IMDb_APIKey}/${movie.id}/Posters,Trailer`) // took out Full Actor, Ratings to limit api calls add if want to display in future. 
+        setmovieId(response.data);
+        console.log(response.data);
+        
+        setCentredModal(movie);
+        setSelectedMovieBool(true);
+        // getReviews(movie);
+    }
+
+
+
+    // const [movieReviews, setMovieReviews] = useState([]);
+
+    // async function getReviews(movie){
+    //     console.log(movie)
+    //     let response = await axios.get(`http://127.0.0.1:8000/api/reviews/${movie.id}/reviews/`);
+    //     setMovieReviews(response.data.reverse());
+    //     console.log(response.data)
+    // }
+
+    
+    // useEffect(() => {
+    //     getReviews();
+    // },[movieReviews])
+    
+
+    
+    // getReviews={getReviews} movieReviews={movieReviews}
+
+
     
     return (  
         <div className="container-fluid movie-list">
@@ -69,14 +90,14 @@ const MovieList = (props) => {
                                         <div className='container-fluid '>
                                             <div className='row'>
                                                 <div className='col'>
-                                                    <img style={{ width: 300, height: 450 }} src={modalData.posters.posters[0].link} alt="" />
+                                                    <img style={{ width: 300, height: 450 }} src={movieId.posters.posters[0].link} alt="" />
                                                     
                                                 </div>
                                                 <div className='col'>
-                                                    <h2 className='movie-title'>{modalData.title}</h2>
-                                                    <p className='movie-plot'>{modalData.plot}</p>
-                                                    <ReviewForm movie={modalData}/>
-                                                    <Reviews movie={modalData}/>
+                                                    <h2 className='movie-title'>{movieId.title}</h2>
+                                                    <p className='movie-plot'>{movieId.plot}</p>
+                                                    
+                                                    <Reviews movie={movieId} />
                                                 </div>
                                             </div>
                                             <MDBBtn onClick={toggleVideo}>trailer</MDBBtn>
@@ -94,7 +115,7 @@ const MovieList = (props) => {
                                 <MDBModalDialog centered size='xl'>
                                     <MDBModalContent>
                                         <MDBModalHeader>
-                                            <MDBModalTitle>{modalData.title}</MDBModalTitle>
+                                            <MDBModalTitle>{movieId.title}</MDBModalTitle>
                                             <MDBBtn
                                                 type='button'
                                                 className='btn-close'
@@ -104,7 +125,7 @@ const MovieList = (props) => {
                                         </MDBModalHeader>
                                         <MDBModalBody>
                                             <div className='video-modal'>
-                                                    <div className='video-player'><iframe style={{ width: 1280, height: 720 }}src={modalData.trailer.linkEmbed}></iframe></div>
+                                                    <div className='video-player'><iframe style={{ width: 1280, height: 720 }}src={movieId.trailer.linkEmbed}></iframe></div>
                                                 </div>
                                         </MDBModalBody>
                                         <MDBModalFooter>
