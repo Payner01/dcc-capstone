@@ -12,9 +12,12 @@ import { MDBBtn,
     MDBModalBody,
     MDBModalFooter,
   } from 'mdb-react-ui-kit';
+import ReviewForm from '../ReviewForm/ReviewForm';
+import Reviews from '../Reviews/Reviews'
 
 
 const MovieList = (props) => {
+
 
     const [centredModal, setCentredModal] = useState(false);
     const [trailerModal, setTrailerModal] = useState(false);
@@ -63,10 +66,15 @@ const MovieList = (props) => {
                                     <MDBModalBody>
                                         <div className='container-fluid '>
                                             <div className='row'>
-                                                <div className='col'><img style={{ width: 300, height: 450 }} src={modalData.posters.posters[0].link} alt="" /></div>
+                                                <div className='col'>
+                                                    <img style={{ width: 300, height: 450 }} src={modalData.posters.posters[0].link} alt="" />
+                                                    
+                                                </div>
                                                 <div className='col'>
                                                     <h2 className='movie-title'>{modalData.title}</h2>
                                                     <p className='movie-plot'>{modalData.plot}</p>
+                                                    <ReviewForm movie={modalData}/>
+                                                    <Reviews movie={modalData}/>
                                                 </div>
                                             </div>
                                             <MDBBtn onClick={toggleVideo}>trailer</MDBBtn>
