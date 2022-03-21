@@ -37,6 +37,8 @@ const MovieList = (props) => {
         
     }
 
+    
+
 //    word=="yes" ? console.log(true) : console.log(false)
     
     return (  

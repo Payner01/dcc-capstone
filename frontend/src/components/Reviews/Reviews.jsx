@@ -8,7 +8,7 @@ const Reviews = (props) => {
     const [user, token] = useAuth();
     const [movieReviews, setMovieReviews] = useState([]);
 
-    
+    console.log(props.movie.id)
 
     async function getReviews(){
         let response = await axios.get(`http://127.0.0.1:8000/api/reviews/${props.movie.id}/reviews/`);
