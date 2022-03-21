@@ -47,12 +47,12 @@ const ReviewForm = (props) => {
     return ( 
             
         <Form onSubmit={handleSubmit}>
-            { localStorage.getItem('token') &&
+            { token &&
             <React.Fragment>
             <Form.Label column sm="2"></Form.Label>
             </React.Fragment>
             }
-            { !localStorage.getItem('token') &&
+            { !token &&
             <React.Fragment>
             <Form.Label column sm="2">Sign in To Comment!</Form.Label>
             </React.Fragment>

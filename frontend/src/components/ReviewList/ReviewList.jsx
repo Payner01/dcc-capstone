@@ -28,7 +28,7 @@ const Reviews = (props) => {
             {props.movieReviews.map((review, index) => {
                 return (
                     <div key={index}>
-                        <p>{user.username}</p>
+                        <p>{review.user.username}</p>
                         <p>{review.text}</p>
                     </div>                                  
                 );

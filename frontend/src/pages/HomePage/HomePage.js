@@ -16,6 +16,8 @@ const HomePage = () => {
   const [popMovies, setPopMovies] = useState([]);
   const [comingSoon, setComingSoon] = useState([]);
 
+    console.log(user);
+
 
     useEffect(() => {
     const getPopularMovies = async () => {
@@ -43,7 +45,7 @@ const HomePage = () => {
         console.log(error.message);
       }
     };
-    getComingSoon();
+    // getComingSoon();
     getPopularMovies();
   }, [token]);
 
