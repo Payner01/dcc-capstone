@@ -2,6 +2,7 @@ import React, { useState,useEffect } from 'react';
 import './MovieList.css'
 import keys from "../../API_Keys.json"
 import axios from 'axios';
+import useAuth from '../../hooks/useAuth';
 
 import { MDBBtn,
     MDBModal,
@@ -12,12 +13,14 @@ import { MDBBtn,
     MDBModalBody,
     MDBModalFooter,
   } from 'mdb-react-ui-kit';
-import ReviewForm from '../ReviewForm/ReviewForm';
+
 import Reviews from '../Reviews/Reviews'
+
 
 
 const MovieList = (props) => {
 
+    const [user, token] = useAuth();
 
     const [centredModal, setCentredModal] = useState(false);
     const [trailerModal, setTrailerModal] = useState(false);
@@ -34,31 +37,34 @@ const MovieList = (props) => {
          let response = await axios.get(`https://imdb-api.com/en/API/Title/${keys.IMDb_APIKey}/${movie.id}/Posters,Trailer`) // took out Full Actor, Ratings to limit api calls add if want to display in future. 
         setmovieId(response.data);
         console.log(response.data);
-        
         setCentredModal(movie);
         setSelectedMovieBool(true);
-        // getReviews(movie);
+        
     }
 
+    function submitMovie(event){
+        event.preventDefault();
+        let favMovie = {
+            user: user,
+            movie_id: movieId.id
+        }
+        addMovieToFav(favMovie)
+    }
 
+    async function addMovieToFav(favMovie){
+        // console.log(movie.id)
+        try {
+            let response = await axios.post(`http://127.0.0.1:8000/api/movies/`,favMovie, { headers: {Authorization: 'Bearer ' + token}});
+            console.log(response);
+            console.log(response.data);
 
-    // const [movieReviews, setMovieReviews] = useState([]);
-
-    // async function getReviews(movie){
-    //     console.log(movie)
-    //     let response = await axios.get(`http://127.0.0.1:8000/api/reviews/${movie.id}/reviews/`);
-    //     setMovieReviews(response.data.reverse());
-    //     console.log(response.data)
-    // }
+        } catch (ex) {
+            console.log(ex.response);
+        }
+        
+    }
 
     
-    // useEffect(() => {
-    //     getReviews();
-    // },[movieReviews])
-    
-
-    
-    // getReviews={getReviews} movieReviews={movieReviews}
 
 
     
@@ -67,7 +73,7 @@ const MovieList = (props) => {
        
                 <div className="row">
 
-                    {props.movies.slice(0, 20).map((movie, index) => (
+                    {props.movies.map((movie, index) => (
                             
                             <img onClick={() => getMovieDetails(movie)} key={index} className="movie-poster" src={movie.image} alt='movie'></img>
                                
@@ -101,6 +107,7 @@ const MovieList = (props) => {
                                                 </div>
                                             </div>
                                             <MDBBtn onClick={toggleVideo}>trailer</MDBBtn>
+                                            <MDBBtn onClick={submitMovie}>Add to Favorites</MDBBtn>
                                         </div>
                                     </MDBModalBody>
                                     <MDBModalFooter>
