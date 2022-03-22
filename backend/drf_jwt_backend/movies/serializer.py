@@ -18,4 +18,4 @@ class WatchLaterSerializer(serializers.Serializer):
     user = UserSerializer(many=False, read_only = True)
     class Meta:
         model = WatchLater
-        fields = ['id', 'user', 'movie_id']
+        fields = ['id', 'user', 'movie_id', 'title', 'image']

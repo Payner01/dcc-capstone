@@ -22,3 +22,17 @@ def add_to_favorites(request):
         fav_movie = FavoriteMovies.objects.filter(user_id=request.user.id)
         serializer = FavoriteMoviesSerializer(fav_movie, many=True)
         return Response(serializer.data)
+
+@api_view(['POST', 'GET'])
+@permission_classes([IsAuthenticated])
+def add_to_watchlist(request):
+    if request.method == 'POST':
+        serializer = WatchLaterSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save(user=request.user)
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    elif request.method == 'GET':
+        watch_later = WatchLater.objects.filter(user_id=request.user.id)
+        serializer = WatchLaterSerializer(watch_later, many=True)
+        return Response(serializer.data)

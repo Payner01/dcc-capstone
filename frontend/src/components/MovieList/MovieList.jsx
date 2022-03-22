@@ -47,6 +47,7 @@ const MovieList = (props) => {
         let favMovie = {
             user: user,
             movie_id: movieId.id
+            // image: movieId.imgae
         }
         addMovieToFav(favMovie)
     }
