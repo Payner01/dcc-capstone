@@ -36,3 +36,11 @@ def add_to_watchlist(request):
         watch_later = WatchLater.objects.filter(user_id=request.user.id)
         serializer = WatchLaterSerializer(watch_later, many=True)
         return Response(serializer.data)
+
+@api_view(['DELETE'])
+@permission_classes([IsAuthenticated])
+def delete_fav_movie(request, pk):
+    favMovie = FavoriteMovies.objects.get(pk=pk)
+    if favMovie.delete():
+        return Response(status.HTTP_204_NO_CONTENT)
+    return Response(status.HTTP_400_BAD_REQUEST)

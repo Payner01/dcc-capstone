@@ -1,6 +1,6 @@
 import axios from 'axios';
 import React, {useState} from 'react';
-import { Form, Col, Button } from 'react-bootstrap'
+import { Form, Col, Row, Button } from 'react-bootstrap'
 import useAuth from '../../hooks/useAuth';
 
 
@@ -25,7 +25,7 @@ const ReviewForm = (props) => {
         }
         postReview(newReview);
         
-        
+
     }
 
     
@@ -41,12 +41,12 @@ const ReviewForm = (props) => {
             console.log(ex.response);
         }
         props.getReviews();
-        
+        setReview('');
     }
 
     return ( 
             
-        <Form onSubmit={handleSubmit}>
+        <Form  onSubmit={handleSubmit}>
             { token &&
             <React.Fragment>
             <Form.Label column sm="2"></Form.Label>
@@ -60,10 +60,15 @@ const ReviewForm = (props) => {
             <Form.Group  className="mb-3" controlId="formPlaintextPassword">
                 <Form.Label column sm="2">Reviews</Form.Label>
                     <Col sm="10">
-                        <Form.Control type="text" placeholder="Insert Review Here" onChange={(event) => setReview(event.target.value)} />
+                        <Row>
+                            <Form.Control type="text" value={review} placeholder="Insert Review Here" onChange={(event) => setReview(event.target.value)} />
+                            <Button type='submit'>submit</Button>
+                        </Row>
+                        
                     </Col>
+                    
                 </Form.Group>
-            <Button type='submit'>submit</Button>
+            
         </Form>
 
      );

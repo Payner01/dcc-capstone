@@ -25,8 +25,9 @@ const MovieList = (props) => {
 
     const [centredModal, setCentredModal] = useState(false);
     const [trailerModal, setTrailerModal] = useState(false);
-    const[movieSelected, setSelectedMovieBool] = useState(false)
+    const[movieSelected, setSelectedMovieBool] = useState(false);
     const [movieId, setmovieId] = useState(null);
+    const [favMovie, setFavMovie] = useState(null);
     
     const toggleShow = () => setCentredModal(!centredModal);
     const toggleVideo = () => setTrailerModal(!trailerModal);
@@ -35,7 +36,7 @@ const MovieList = (props) => {
     console.log(movieId); // shows data of selected movie
 
     async function getMovieApi(movie) { //movie.id
-        let test = movie.rank
+        let test = movie.resultType
         let test2 = movie.movie_id 
         console.log(test, test2)
         let response = null
@@ -49,7 +50,7 @@ const MovieList = (props) => {
         }
           // took out Full Actor, Ratings to limit api calls add if want to display in future. 
         setmovieId(response.data);
-        console.log(response.data);//movie.movie_id
+        console.log(response.data);
         setCentredModal(movie);
         setSelectedMovieBool(true);
     }
@@ -66,16 +67,28 @@ const MovieList = (props) => {
     }
 
     async function addMovieToFav(favMovie){
-        // console.log(movie.id)
+        console.log(favMovie)
         try {
             let response = await axios.post(`http://127.0.0.1:8000/api/movies/`,favMovie, { headers: {Authorization: 'Bearer ' + token}});
             console.log(response);
             console.log(response.data);
+            setFavMovie(response.data.id);
+
 
         } catch (ex) {
             console.log(ex.response);
         }
         
+    }
+    async function deleteFavMovie(id){
+        try {
+        let response = await axios.delete(`http://127.0.0.1:8000/api/movies/deletemovie/${id}/`, { headers: {Authorization: 'Bearer ' + token}});
+        console.log(response);
+        
+        
+        }catch (ex) {
+            console.log(ex.response);
+        }
     }
 
     function submitWatchList(event){
@@ -111,7 +124,7 @@ const MovieList = (props) => {
 
                     {props.movies.map((movie, index) => (
                             
-                            <img onClick={() => getMovieApi(movie)} key={index} className="movie-poster" src={movie.image} alt='movie'></img>
+                            <img onClick={() => getMovieApi(movie)} key={index} className="movie-poster w-100 hover-shadow" src={movie.image} alt='movie'></img>
                                
                     ))}
                     <>
@@ -144,6 +157,7 @@ const MovieList = (props) => {
                                             </div>
                                             <MDBBtn onClick={toggleVideo}>trailer</MDBBtn>
                                             <MDBBtn onClick={submitFavMovie}>Add to Favorites</MDBBtn>
+                                            <MDBBtn onClick={() => deleteFavMovie(favMovie)}>REmove Favorite Movie</MDBBtn>
                                             <MDBBtn onClick={submitWatchList}>Add to Watch List</MDBBtn>
                                         </div>
                                     </MDBModalBody>

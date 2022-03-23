@@ -13,9 +13,19 @@ const Reviews = (props) => {
     console.log(props.movieReviews)
 
     async function getReviews(){
-        let response = await axios.get(`http://127.0.0.1:8000/api/reviews/${props.movie.id}/reviews/`);
+        let response = await axios.get(`http://127.0.0.1:8000/api/reviews/${props.movie.id}/reviews/`, { headers: {Authorization: 'Bearer ' + token}});
         setMovieReviews(response.data.reverse());
         console.log(response.data)
+    }
+    async function deleteReview(id){
+        try {
+        let response = await axios.delete(`http://127.0.0.1:8000/api/reviews/delete/${id}/`, { headers: {Authorization: 'Bearer ' + token}});
+        console.log(response);
+        getReviews();
+        
+        }catch (ex) {
+            console.log(ex.response);
+        }
     }
 
     useEffect(() => {
@@ -26,7 +36,7 @@ const Reviews = (props) => {
     return ( 
         <div>
             <ReviewForm movie={props.movie} getReviews={getReviews} />
-            <ReviewList movieReviews={movieReviews}/>
+            <ReviewList movieReviews={movieReviews} deleteReview={deleteReview}/>
         </div>
      );
 }

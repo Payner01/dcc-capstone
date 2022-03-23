@@ -13,7 +13,8 @@ const ProfilePage = () => {
   const [movieDetails, setMovieDetails] = useState([]);
   const [watchList, setWatchList] = useState([]);
 
-  let favMovieApi = `http://127.0.0.1:8000/api/movies/`;
+  let favMovieCall = `http://127.0.0.1:8000/api/movies/`;
+  let watchListCall = `http://127.0.0.1:8000/api/movies/watchlist/`;
 
   console.log(favMovies)
 
@@ -26,14 +27,14 @@ const ProfilePage = () => {
   }, [token]);
 
   async function getFavorites () {
-    let response = await axios.get(`http://127.0.0.1:8000/api/movies/`,{ headers: {Authorization: 'Bearer ' + token}});
+    let response = await axios.get(favMovieCall,{ headers: {Authorization: 'Bearer ' + token}});
 
       setFavMovies(response.data)
       console.log(response.data)
   }
 
   async function getWatchList () {
-    let response = await axios.get(`http://127.0.0.1:8000/api/movies/watchlist/`,{ headers: {Authorization: 'Bearer ' + token}});
+    let response = await axios.get(watchListCall,{ headers: {Authorization: 'Bearer ' + token}});
 
       setWatchList(response.data)
       console.log(response.data)

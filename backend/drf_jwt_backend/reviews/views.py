@@ -44,3 +44,11 @@ def create_like_dislike(request):
         reviewLikes = ReviewLikes.objects.filter(user_id=request.user.id)
         serializer = ReviewLikesSerializer(reviewLikes, many=True)
         return Response(serializer.data)
+
+@api_view(['DELETE'])
+@permission_classes([IsAuthenticated])
+def delete_review(request, pk):
+    review = Review.objects.get(pk=pk)
+    if review.delete():
+        return Response(status.HTTP_204_NO_CONTENT)
+    return Response(status.HTTP_400_BAD_REQUEST)
