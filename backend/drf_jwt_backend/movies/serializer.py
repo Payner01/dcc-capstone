@@ -12,7 +12,7 @@ class FavoriteMoviesSerializer(serializers.ModelSerializer):
     user = UserSerializer(many=False, read_only = True)
     class Meta:
         model = FavoriteMovies
-        fields = ['id', 'user', 'movie_id']
+        fields = ['id', 'user', 'movie_id', 'title', 'image']
 
 class WatchLaterSerializer(serializers.ModelSerializer):
     user = UserSerializer(many=False, read_only = True)

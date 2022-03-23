@@ -18,6 +18,7 @@ import Reviews from '../Reviews/Reviews'
 
 
 
+
 const MovieList = (props) => {
 
     const [user, token] = useAuth();
@@ -33,21 +34,33 @@ const MovieList = (props) => {
 
     console.log(movieId); // shows data of selected movie
 
-    async function getMovieDetails(movie) {
-         let response = await axios.get(`https://imdb-api.com/en/API/Title/${keys.IMDb_APIKey}/${movie.id}/Posters,Trailer`) // took out Full Actor, Ratings to limit api calls add if want to display in future. 
+    async function getMovieApi(movie) { //movie.id
+        let test = movie.rank
+        let test2 = movie.movie_id 
+        console.log(test, test2)
+        let response = null
+        if (test !== undefined) {
+            response = await axios.get(`https://imdb-api.com/en/API/Title/${keys.IMDb_APIKey}/${movie.id}/Posters,Trailer`)
+            console.log(response.data)
+        }
+        else {
+            response = await axios.get(`https://imdb-api.com/en/API/Title/${keys.IMDb_APIKey}/${movie.movie_id}/Posters,Trailer`)
+            console.log(response.data)
+        }
+          // took out Full Actor, Ratings to limit api calls add if want to display in future. 
         setmovieId(response.data);
-        console.log(response.data);
+        console.log(response.data);//movie.movie_id
         setCentredModal(movie);
         setSelectedMovieBool(true);
-        
     }
 
     function submitFavMovie(event){
         event.preventDefault();
         let favMovie = {
             user: user,
-            movie_id: movieId.id
-            // image: movieId.imgae
+            movie_id: movieId.id,
+            image: movieId.image,
+            title: movieId.title
         }
         addMovieToFav(favMovie)
     }
@@ -98,7 +111,7 @@ const MovieList = (props) => {
 
                     {props.movies.map((movie, index) => (
                             
-                            <img onClick={() => getMovieDetails(movie)} key={index} className="movie-poster" src={movie.image} alt='movie'></img>
+                            <img onClick={() => getMovieApi(movie)} key={index} className="movie-poster" src={movie.image} alt='movie'></img>
                                
                     ))}
                     <>

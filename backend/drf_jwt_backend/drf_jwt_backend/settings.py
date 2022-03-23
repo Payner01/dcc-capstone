@@ -40,7 +40,8 @@ INSTALLED_APPS = [
     'corsheaders',
     'cars.apps.CarsConfig',  # This app is for example use only
     'reviews.apps.ReviewsConfig',
-    'movies.apps.MoviesConfig'
+    'movies.apps.MoviesConfig',
+    
 ]
 
 MIDDLEWARE = [

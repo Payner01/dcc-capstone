@@ -20,32 +20,17 @@ const ProfilePage = () => {
   useEffect(() => {
     console.log("test use effect");
 
-    ////////// not efficient but it works for mvp ////////////////
-    // change the add fav backend so it taked in movie poster and Id. 
-    const getFavoriteMovies = async () => {
-      console.log("get fav movies");
-      try {
-        let response = await axios.get(favMovieApi, {headers: { Authorization: "Bearer " + token },});
-        // console.log(response.data);
-        let tempArray = []
-        for (const x of response.data) {
-          const response = await axios.get(`https://imdb-api.com/en/API/Title/${keys.IMDb_APIKey}/${x.movie_id}`,{ headers: { Authorization: "Bearer " + token } });
-          console.log(response.data);
-          tempArray.push(response.data);
-        }
-        setFavMovies(tempArray)
-        console.log("test");
-
-      } catch (error) {
-        console.log(error.message);
-      } 
-    };
-
-    getFavoriteMovies();
+    getFavorites();
     getWatchList();
 
   }, [token]);
 
+  async function getFavorites () {
+    let response = await axios.get(`http://127.0.0.1:8000/api/movies/`,{ headers: {Authorization: 'Bearer ' + token}});
+
+      setFavMovies(response.data)
+      console.log(response.data)
+  }
 
   async function getWatchList () {
     let response = await axios.get(`http://127.0.0.1:8000/api/movies/watchlist/`,{ headers: {Authorization: 'Bearer ' + token}});

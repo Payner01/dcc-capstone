@@ -20,6 +20,7 @@ const Reviews = (props) => {
                     <div key={index}>
                         <p>{review.user.username}</p>
                         <p>{review.text}</p>
+                        
                     </div>                                  
                 );
             })}
