@@ -11,6 +11,7 @@ const ProfilePage = () => {
   const [favMovies, setFavMovies] = useState([]);
   const [apiMovies, setApiMovies] = useState([]);
   const [movieDetails, setMovieDetails] = useState([]);
+  const [watchList, setWatchList] = useState([]);
 
   let favMovieApi = `http://127.0.0.1:8000/api/movies/`;
 
@@ -25,7 +26,7 @@ const ProfilePage = () => {
       console.log("get fav movies");
       try {
         let response = await axios.get(favMovieApi, {headers: { Authorization: "Bearer " + token },});
-        console.log(response.data);
+        // console.log(response.data);
         let tempArray = []
         for (const x of response.data) {
           const response = await axios.get(`https://imdb-api.com/en/API/Title/${keys.IMDb_APIKey}/${x.movie_id}`,{ headers: { Authorization: "Bearer " + token } });
@@ -41,8 +42,17 @@ const ProfilePage = () => {
     };
 
     getFavoriteMovies();
+    getWatchList();
 
   }, [token]);
+
+
+  async function getWatchList () {
+    let response = await axios.get(`http://127.0.0.1:8000/api/movies/watchlist/`,{ headers: {Authorization: 'Bearer ' + token}});
+
+      setWatchList(response.data)
+      console.log(response.data)
+  }
 
 
 
@@ -51,8 +61,10 @@ const ProfilePage = () => {
 
   return (
     <div className="profile-page">
-      <h3>PROFILE</h3>
+      <h3>Favorites</h3>
       <MovieList movies={favMovies} />
+      <h3>Watch List</h3>
+      <MovieList movies={watchList} />
     </div>
   );
 };

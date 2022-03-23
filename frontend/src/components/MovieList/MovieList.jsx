@@ -42,7 +42,7 @@ const MovieList = (props) => {
         
     }
 
-    function submitMovie(event){
+    function submitFavMovie(event){
         event.preventDefault();
         let favMovie = {
             user: user,
@@ -65,7 +65,29 @@ const MovieList = (props) => {
         
     }
 
-    
+    function submitWatchList(event){
+        event.preventDefault();
+        let favMovie = {
+            user: user,
+            movie_id: movieId.id,
+            image: movieId.image,
+            title: movieId.title
+        }
+        addMovieToWatch(favMovie)
+    }
+
+    async function addMovieToWatch(watchList){
+        
+        try {
+            let response = await axios.post(`http://127.0.0.1:8000/api/movies/watchlist/`,watchList, { headers: {Authorization: 'Bearer ' + token}});
+            console.log(response);
+            console.log(response.data);
+
+        } catch (ex) {
+            console.log(ex.response);
+        }
+        
+    }
 
 
     
@@ -108,7 +130,8 @@ const MovieList = (props) => {
                                                 </div>
                                             </div>
                                             <MDBBtn onClick={toggleVideo}>trailer</MDBBtn>
-                                            <MDBBtn onClick={submitMovie}>Add to Favorites</MDBBtn>
+                                            <MDBBtn onClick={submitFavMovie}>Add to Favorites</MDBBtn>
+                                            <MDBBtn onClick={submitWatchList}>Add to Watch List</MDBBtn>
                                         </div>
                                     </MDBModalBody>
                                     <MDBModalFooter>

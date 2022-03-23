@@ -14,7 +14,7 @@ class FavoriteMoviesSerializer(serializers.ModelSerializer):
         model = FavoriteMovies
         fields = ['id', 'user', 'movie_id']
 
-class WatchLaterSerializer(serializers.Serializer):
+class WatchLaterSerializer(serializers.ModelSerializer):
     user = UserSerializer(many=False, read_only = True)
     class Meta:
         model = WatchLater
