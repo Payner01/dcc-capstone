@@ -1,11 +1,12 @@
 ul {
   display: flex;
-  /* justify-content: space-between; */
+  justify-content: flex-start;
   list-style-type: none;
 }
 
 li {
   font-size: 1.25rem;
+  margin-right: 1rem;
 }
 
 .navBar {
@@ -18,8 +19,8 @@ li {
 
 .navBar button {
   /* background: transparent; */
-  border: 2px solid white;
-  color: white;
+  border: 2px solid aqua;
+  color: aqua;
   padding: 0.4rem 0.5rem;
 }
 
@@ -32,4 +33,8 @@ li {
 .brand {
   cursor: pointer;
   font-size: 2rem;
+}
+
+b {
+  color: aquamarine;
 }

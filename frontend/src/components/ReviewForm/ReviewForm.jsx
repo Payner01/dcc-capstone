@@ -2,6 +2,7 @@ import axios from 'axios';
 import React, {useState} from 'react';
 import { Form, Col, Row, Button } from 'react-bootstrap'
 import useAuth from '../../hooks/useAuth';
+import './ReviewForm.css'
 
 
 const ReviewForm = (props) => {
@@ -47,22 +48,15 @@ const ReviewForm = (props) => {
     return ( 
             
         <Form  onSubmit={handleSubmit}>
-            { token &&
-            <React.Fragment>
-            <Form.Label column sm="2"></Form.Label>
-            </React.Fragment>
-            }
-            { !token &&
-            <React.Fragment>
-            <Form.Label column sm="2">Sign in To Comment!</Form.Label>
-            </React.Fragment>
-            }
-            <Form.Group  className="mb-3" controlId="formPlaintextPassword">
-                <Form.Label column sm="2">Reviews</Form.Label>
-                    <Col sm="10">
-                        <Row>
+            <Form.Group  className="review-form mb-3" controlId="formPlaintextPassword">
+                <Form.Label column>Reviews</Form.Label>
+                    <Col sm='11' className='review-column'>
+                        <Row className='review-row'>
                             <Form.Control type="text" value={review} placeholder="Insert Review Here" onChange={(event) => setReview(event.target.value)} />
-                            <Button type='submit'>submit</Button>
+                            
+                        </Row>
+                        <Row>
+                            <Button  type='submit'>submit</Button>
                         </Row>
                         
                     </Col>

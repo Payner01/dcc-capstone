@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import useAuth from '../../hooks/useAuth';
 import ReviewForm from '../ReviewForm/ReviewForm';
 import ReviewList from '../ReviewList/ReviewList';
+import './Reviews.css'
 
 const Reviews = (props) => {
 
@@ -34,7 +35,7 @@ const Reviews = (props) => {
     
 
     return ( 
-        <div>
+        <div className='review-section'>
             <ReviewForm movie={props.movie} getReviews={getReviews} />
             <ReviewList movieReviews={movieReviews} deleteReview={deleteReview}/>
         </div>

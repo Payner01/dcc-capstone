@@ -1,11 +1,15 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400&display=swap");
 
+
 *,
 *::before,
 *::after {
   margin: 0;
   padding: 0;
   box-sizing: inherit;
+}
+body {
+  background: #1F2121;
 }
 
 html {
@@ -15,6 +19,7 @@ html {
 
 p {
   font-size: 20px;
+  color: white;
 }
 
 button {

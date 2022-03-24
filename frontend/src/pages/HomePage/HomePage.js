@@ -15,6 +15,7 @@ const HomePage = () => {
   const [cars, setCars] = useState([]);
   const [popMovies, setPopMovies] = useState([]);
   const [comingSoon, setComingSoon] = useState([]);
+  const [boxOffice, setBoxOffice] = useState([]);
 
     console.log(user);
 
@@ -42,12 +43,26 @@ const HomePage = () => {
           },
         });
         setComingSoon(response.data.items);
+        console.log(response.data.items);
       } catch (error) {
         console.log(error.message);
       }
     };
-    // getComingSoon();
+    const getBoxOfficeAllTime = async () => {
+      try {
+        let response = await axios.get(`https://imdb-api.com/en/API/BoxOfficeAllTime/${keys.IMDb_APIKey}`, {
+          headers: {
+            Authorization: "Bearer " + token,
+          },
+        });
+        setBoxOffice(response.data.items);
+      } catch (error) {
+        console.log(error.message);
+      }
+    };
+    getComingSoon();
     getPopularMovies();
+    getBoxOfficeAllTime();
   }, [token]);
 
 
@@ -65,6 +80,11 @@ const HomePage = () => {
       <h1>Coming Soon</h1>
       <div className="row">
         <MovieList movies={comingSoon} />
+      </div>
+      <br />
+      <h1>Box Office All Time</h1>
+      <div className="row">
+        {/* <MovieList movies={boxOffice} /> */}
       </div>
       
       

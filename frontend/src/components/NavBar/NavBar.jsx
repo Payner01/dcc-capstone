@@ -14,6 +14,8 @@ import {
   MDBIcon,
   MDBCollapse
 } from 'mdb-react-ui-kit';
+import useAuth from "../../hooks/useAuth";
+
 
 const Navbar = () => {
   const { logoutUser, user } = useContext(AuthContext);

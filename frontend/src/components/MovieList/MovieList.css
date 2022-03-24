@@ -7,21 +7,38 @@
 .movie-poster{
     max-width: 200px;
     max-height: 300px;
+    
 }
 .movie-list > .row { 
     overflow-x: auto;
     flex-wrap: nowrap;
 }
 
+.image-container {
+    position: relative;
+    transition: transform 0.2s;  
+}
+
+.modal-content{
+    background-color: #1F2121;
+}
+.button-col{
+    display: flex;
+    margin-top: 2em;
+    justify-content: space-between;
+    
+}
+
 .video-modal{
     display: flex;
-    align-items: right;
+    flex-direction: row;
+    
+    align-items: center;
 }
- .video-player{
-     
-     justify-content: center;
-     align-items: flex-start
- }
+ /* .video-player{
+    display: flex;
+    
+ } */
 .movie-title{
     display: flex;
     font-size: xx-large;
@@ -30,3 +47,7 @@
 .movie-plot{
     font-size: medium;
 }
+/* .image-container:hover{
+    cursor: pointer;
+    transform: scale(1.1);
+} */
