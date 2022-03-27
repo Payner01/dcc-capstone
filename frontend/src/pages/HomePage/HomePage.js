@@ -15,7 +15,7 @@ const HomePage = () => {
   const [cars, setCars] = useState([]);
   const [popMovies, setPopMovies] = useState([]);
   const [comingSoon, setComingSoon] = useState([]);
-  const [boxOffice, setBoxOffice] = useState([]);
+  const [topMovies, setTopMovies] = useState([]);
 
     console.log(user);
 
@@ -48,21 +48,22 @@ const HomePage = () => {
         console.log(error.message);
       }
     };
-    const getBoxOfficeAllTime = async () => {
+    const getTopMovies = async () => {
       try {
-        let response = await axios.get(`https://imdb-api.com/en/API/BoxOfficeAllTime/${keys.IMDb_APIKey}`, {
+        let response = await axios.get(`https://imdb-api.com/en/API/Top250Movies/${keys.IMDb_APIKey}`, {
           headers: {
             Authorization: "Bearer " + token,
           },
         });
-        setBoxOffice(response.data.items);
+        console.log(response.data.items)
+        setTopMovies(response.data.items);
       } catch (error) {
         console.log(error.message);
       }
     };
     // getComingSoon();
     getPopularMovies();
-    // getBoxOfficeAllTime();
+    // getTopMovies();
   }, [token]);
 
 
@@ -82,9 +83,9 @@ const HomePage = () => {
         <MovieList movies={comingSoon} />
       </div>
       <br />
-      <h1>Box Office All Time</h1>
+      <h1>IMDb Top Movies</h1>
       <div className="row">
-        {/* <MovieList movies={boxOffice} /> */}
+        <MovieList movies={topMovies} />
       </div>
       
       

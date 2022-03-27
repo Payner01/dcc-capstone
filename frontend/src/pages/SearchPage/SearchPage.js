@@ -13,25 +13,7 @@ const SearchPage = (props) => {
     const [searchList, setSearchList] = useState([]);
     const[movieSelected, setSelectedMovieBool] = useState(false)
 
-    // async function searchMovie(searchTerm){
-    //     let response = await axios.get(`https://imdb-api.com/en/API/SearchAll/${keys.IMDb_APIKey}/${searchTerm}`)
-    //     setSearchList(response.data.items)
-    //     console.log(response.data.items)
-    // }
-
     
-        // const searchMovie = async (searchTerm) => {
-        //   try {
-        //     let response = await axios.get(`https://imdb-api.com/en/API/SearchAll/${keys.IMDb_APIKey}/${searchTerm}`, {
-        //       headers: {
-        //         Authorization: "Bearer " + token,
-        //       },
-        //     });
-        //     setSearchList(response.data.items);
-        //   } catch (error) {
-        //     console.log(error.message);
-        //   }
-        // };
 
     
         
@@ -47,7 +29,7 @@ const SearchPage = (props) => {
             <SearchBar setSearch={setSearchTerm} />
             {/* <h1>{searchList.title}</h1> */}
             {movieSelected? 
-            <MovieList movies={searchList} />
+            <MovieList movies={searchList} isPannel/>
             : null}
         </div>
 

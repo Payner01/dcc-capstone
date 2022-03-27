@@ -41,9 +41,9 @@ const MovieList = (props) => {
     console.log(movieId); // shows data of selected movie
 
     async function getMovieApi(movie) { //movie.id
-        let test = movie.resultType || movie.year 
+        let test = movie.resultType || movie.year
         let test2 = movie.movie_id 
-        console.log(test, test2)
+        console.log(movie, test, test2)
 
         let response = null
         if (test !== undefined) {
@@ -138,11 +138,11 @@ const MovieList = (props) => {
     
     
     return (  
-        <div className="container-fluid movie-list">
+        <div className={`container-fluid ${props.isPannel?"movie-pannel":"movie-list"}`}>
        
                 <div className="row d-flex justify-content-start m-3">
 
-                    {props.movies.map((movie, index) => (
+                    {props.movies.slice(0,30).map((movie, index) => (
                             
                             <img onClick={() => getMovieApi(movie)} key={index} className="movie-poster image-fluid rounded" src={movie.image} alt='movie'></img>
                             
