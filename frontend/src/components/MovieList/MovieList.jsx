@@ -13,7 +13,7 @@ import { MDBBtn,
     MDBModalBody,
     MDBModalFooter,
     MDBIcon,
-    MDBTooltip,
+    MDBBtnGroup,
     MDBSwitch,
   } from 'mdb-react-ui-kit';
 
@@ -32,6 +32,7 @@ const MovieList = (props) => {
     const[movieSelected, setSelectedMovieBool] = useState(false);
     const [movieId, setmovieId] = useState(null);
     const [favMovie, setFavMovie] = useState(null);
+    const [watchList, setWatchList] = useState(null);
     
     const toggleShow = () => setCentredModal(!centredModal);
     const toggleVideo = () => setTrailerModal(!trailerModal);
@@ -55,12 +56,14 @@ const MovieList = (props) => {
         }
           // took out Full Actor, Ratings to limit api calls add if want to display in future. 
         setmovieId(response.data);
+        setWatchList(movie.id)
         setFavMovie(movie.id);
         console.log(response.data);
         setCentredModal(movie);
         setSelectedMovieBool(true);
     }
 
+//////////////////// Movie Favorites List ///////////////////////
     function submitFavMovie(event){
         event.preventDefault();
         let favMovie = {
@@ -87,17 +90,14 @@ const MovieList = (props) => {
         
     }
     async function deleteFavMovie(id){
-        try {
         let response = await axios.delete(`http://127.0.0.1:8000/api/movies/deletemovie/${id}/`, { headers: {Authorization: 'Bearer ' + token}});
         console.log(response);
         setSelectedMovieBool(false);
         
         
-        }catch (ex) {
-            console.log(ex.response);
-        }
+        
     }
-
+///////////////////// Movie Watch List//////////////////////
     function submitWatchList(event){
         event.preventDefault();
         let favMovie = {
@@ -115,23 +115,25 @@ const MovieList = (props) => {
             let response = await axios.post(`http://127.0.0.1:8000/api/movies/watchlist/`,watchList, { headers: {Authorization: 'Bearer ' + token}});
             console.log(response);
             console.log(response.data);
+            setWatchList(response.data.id);
 
         } catch (ex) {
             console.log(ex.response);
         }
         
     }
-    // async function deleteWatchList(id){
-    //     try {
-    //     let response = await axios.delete(`http://127.0.0.1:8000/api/movies/deletemovie/${id}/`, { headers: {Authorization: 'Bearer ' + token}});
-    //     console.log(response);
-    //     setSelectedMovieBool(false);
+    async function deleteWatchList(id){
+        try {
+        let response = await axios.delete(`http://127.0.0.1:8000/api/movies/deletewatchlist/${id}/`, { headers: {Authorization: 'Bearer ' + token}});
+        console.log(response);
+        setSelectedMovieBool(false);
         
         
-    //     }catch (ex) {
-    //         console.log(ex.response);
-    //     }
-    // }
+        
+        }catch (ex) {
+            console.log(ex.response);
+        }
+    }
 
     
     
@@ -151,7 +153,7 @@ const MovieList = (props) => {
                             <MDBModalDialog centered size='lg'>
                                 <MDBModalContent className='modal-content'>
                                     <MDBModalHeader>
-                                        <MDBModalTitle>{movieId.title}</MDBModalTitle>
+                                        <MDBModalTitle className='titles'>{movieId.title}</MDBModalTitle>
                                         <MDBBtn
                                             type='button'
                                             className='btn-close'
@@ -166,11 +168,14 @@ const MovieList = (props) => {
                                                     <img className="modal-image" style={{ width: 300, height: 450 }} src={movieId.posters.posters[0].link} alt="" />
                                                         <div className='button-col'>
                                                             <MDBBtn title='Watch Trailer' onClick={toggleVideo}><MDBIcon fas icon="film"/></MDBBtn>
-                                                            <MDBBtn title='Add to Favorites' onClick={submitFavMovie}><MDBIcon fas icon="star"/></MDBBtn>
-                                                            <MDBBtn title='Remove Movie from Favorites' onClick={() => deleteFavMovie(favMovie)}><MDBIcon far icon="star"/></MDBBtn>
-                                                            <MDBBtn title='Add to Watchlist' onClick={submitWatchList}><MDBIcon fas icon="heart"/></MDBBtn>
-                                                            <MDBBtn title='Remove from Watchlist' onClick={submitWatchList}><MDBIcon far icon="heart"/></MDBBtn>
-                                                
+                                                            <MDBBtnGroup >
+                                                                <MDBBtn title='Add to Favorites' onClick={submitFavMovie}><MDBIcon fas icon="star"/></MDBBtn>
+                                                                <MDBBtn title='Remove Movie from Favorites' onClick={() => deleteFavMovie(favMovie)}><MDBIcon far icon="star"/></MDBBtn>
+                                                            </MDBBtnGroup>
+                                                            <MDBBtnGroup>
+                                                                <MDBBtn title='Add to Watchlist' onClick={submitWatchList}><MDBIcon fas icon="heart"/></MDBBtn>
+                                                                <MDBBtn title='Remove from Watchlist' onClick={() => deleteWatchList(watchList)}><MDBIcon far icon="heart"/></MDBBtn>
+                                                            </MDBBtnGroup>
                                                 </div>
                                                 </div>
                                                 <div className='col'>
@@ -178,7 +183,7 @@ const MovieList = (props) => {
                                                     <p className='movie-plot'>{movieId.plot}</p>
                                                     
                                                     <Reviews movie={movieId} />
-                                                </div>
+                                                </div> 
                                             </div>
                                         </div>
                                     </MDBModalBody>

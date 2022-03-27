@@ -35,17 +35,21 @@
     
     align-items: center;
 }
- /* .video-player{
-    display: flex;
-    
- } */
+.titles{
+
+    color: #00D8C9;
+}
 .movie-title{
     display: flex;
     font-size: xx-large;
     justify-content: center;
+    color: #00D8C9;
 }
 .movie-plot{
     font-size: medium;
+}
+.btn {
+    background-color: #00D8C9;
 }
 /* .image-container:hover{
     cursor: pointer;

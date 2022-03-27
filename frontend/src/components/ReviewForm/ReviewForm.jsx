@@ -9,8 +9,7 @@ const ReviewForm = (props) => {
 
     const [user, token] = useAuth();
     const [review, setReview] = useState('');
-    const [likes, setLikes] = useState(0);
-    const [dislikes, setDislikes] = useState(0); 
+    
 
     
 
@@ -20,8 +19,7 @@ const ReviewForm = (props) => {
             user: user,
             text: review,
             movie_id: props.movie.id,
-            likes: likes,
-            dislikes: dislikes
+            
 
         }
         postReview(newReview);
@@ -49,7 +47,7 @@ const ReviewForm = (props) => {
             
         <Form  onSubmit={handleSubmit}>
             <Form.Group  className="review-form mb-3" controlId="formPlaintextPassword">
-                <Form.Label column>Reviews</Form.Label>
+                <Form.Label column style={{ color: 'white'}}>Reviews</Form.Label>
                     <Col sm='11' className='review-column'>
                         <Row className='review-row'>
                             <Form.Control type="text" value={review} placeholder="Insert Review Here" onChange={(event) => setReview(event.target.value)} />

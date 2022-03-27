@@ -3,7 +3,8 @@ import axios from "axios";
 import "react-bootstrap";
 import MovieList from "../../components/MovieList/MovieList";
 import useAuth from "../../hooks/useAuth";
-import keys from "../../API_Keys.json";
+// import keys from "../../API_Keys.json";
+import './ProfilePage.css'
 
 
 const ProfilePage = () => {
@@ -29,7 +30,7 @@ const ProfilePage = () => {
 
   async function getFavorites () {
     let response = await axios.get(favMovieCall,{ headers: {Authorization: 'Bearer ' + token}});
-
+      
       setFavMovies(response.data)
       console.log(response.data)
   }
@@ -49,7 +50,7 @@ const ProfilePage = () => {
   return (
     <div className="profile-page">
       <h3>Favorites</h3>
-      <MovieList movies={favMovies} />
+      <MovieList getFavorites={getFavorites} getWatchList={getWatchList} movies={favMovies} />
       <h3>Watch List</h3>
       <MovieList movies={watchList} />
     </div>

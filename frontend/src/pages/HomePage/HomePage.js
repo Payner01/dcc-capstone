@@ -60,9 +60,9 @@ const HomePage = () => {
         console.log(error.message);
       }
     };
-    getComingSoon();
+    // getComingSoon();
     getPopularMovies();
-    getBoxOfficeAllTime();
+    // getBoxOfficeAllTime();
   }, [token]);
 
 

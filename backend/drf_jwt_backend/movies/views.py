@@ -44,3 +44,11 @@ def delete_fav_movie(request, pk):
     if favMovie.delete():
         return Response(status.HTTP_204_NO_CONTENT)
     return Response(status.HTTP_400_BAD_REQUEST)
+
+@api_view(['DELETE'])
+@permission_classes([IsAuthenticated])
+def delete_watch_list(request, pk):
+    watch_list = WatchLater.objects.get(pk=pk)
+    if watch_list.delete():
+        return Response(status.HTTP_204_NO_CONTENT)
+    return Response(status.HTTP_400_BAD_REQUEST)
