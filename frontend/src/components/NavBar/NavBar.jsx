@@ -3,32 +3,23 @@ import { useContext } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import AuthContext from "../../context/AuthContext";
 import "./NavBar.css";
-import {
-  MDBContainer,
-  MDBNavbar,
-  MDBNavbarBrand,
-  MDBNavbarToggler,
-  MDBNavbarNav,
-  MDBNavbarItem,
-  MDBNavbarLink,
-  MDBIcon,
-  MDBCollapse
-} from 'mdb-react-ui-kit';
 import useAuth from "../../hooks/useAuth";
+import logo from '../../Images/CouchBuddy.png'
 
 
 const Navbar = () => {
   const { logoutUser, user } = useContext(AuthContext);
   const navigate = useNavigate();
 
-  const [showNavSecond, setShowNavSecond] = useState(false);
+  
 
   return (
     <div className="navBar">
       <ul>
         <li className="brand">
+          
           <Link to="/" style={{ textDecoration: "none", color: "white" }}>
-            <b>Home</b>
+            <img title="Home" className="logo" src={logo}></img>
           </Link>
         </li>
         <br />
@@ -52,30 +43,9 @@ const Navbar = () => {
           )}
         </li>
       </ul>
-      {/* <MDBNavbar expand='lg' light bgColor='light'>
-      <MDBContainer fluid>
-        <MDBNavbarBrand href='#'>Navbar</MDBNavbarBrand>
-        <MDBNavbarToggler
-          aria-expanded='false'
-          aria-label='Toggle navigation'
-          onClick={() => setShowNavSecond(!showNavSecond)}
-        >
-          <MDBIcon icon='bars' fas />
-        </MDBNavbarToggler>
-        <MDBCollapse navbar show={showNavSecond}>
-          <MDBNavbarNav>
-            <MDBNavbarLink active aria-current='page' href='#'>
-              Home
-            </MDBNavbarLink>
-            <Link to="profile">Features</Link>
-            <MDBNavbarLink href='#'>Pricing</MDBNavbarLink>
-            <MDBNavbarLink disabled href='#' tabIndex={-1} aria-disabled='true'>
-              Disabled
-            </MDBNavbarLink>
-          </MDBNavbarNav>
-        </MDBCollapse>
-      </MDBContainer>
-    </MDBNavbar> */}
+      {user ? (<h1>Welcome {user.first_name}</h1>) : null}
+      
+      
     </div>
   );
 };

@@ -13,10 +13,7 @@ const SearchPage = (props) => {
     const [searchList, setSearchList] = useState([]);
     const[movieSelected, setSelectedMovieBool] = useState(false)
 
-    
 
-    
-        
     function setSearchTerm(results) {
         setSearchList(results);
         setSelectedMovieBool(true);
@@ -29,7 +26,8 @@ const SearchPage = (props) => {
             <SearchBar setSearch={setSearchTerm} />
             {/* <h1>{searchList.title}</h1> */}
             {movieSelected? 
-            <MovieList movies={searchList} isPannel/>
+            // <MovieList movies={favMovies} isPannel />
+            <MovieList movies={searchList} isPannel />
             : null}
         </div>
 

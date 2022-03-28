@@ -2,6 +2,7 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import keys from "../../API_Keys.json"
 import  Button  from 'react-bootstrap/Button';
+import './SearchBar.css'
 
 
 const SearchBar = (props) => {
@@ -20,6 +21,7 @@ const SearchBar = (props) => {
         console.log(response.data.results)
         props.setSearch(response.data.results);
     }
+    
 
     return ( 
         <div className="form">

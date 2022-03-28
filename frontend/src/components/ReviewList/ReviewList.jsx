@@ -19,7 +19,7 @@ const Reviews = (props) => {
             review_id: reviewId,
             
         }
-        // props.getPostLikes()
+        
         props.postLike(reviewLiked)
 
         
@@ -35,9 +35,13 @@ const Reviews = (props) => {
                         <div className="form-control" >
                             <h4 className="form-heading">{review.user.username}</h4>
                             <div className="post-content">{review.text}</div>
-                            <MDBBtn style={{ background: '#00D8C9' }} onClick={() => {handleSubmit(review.id)}}>Like</MDBBtn>
-                                                   
-                            <MDBIcon onClick={() => props.deleteReview(review.id)}fas icon="trash-alt" size='1x'/>
+                            <div className='post-actions'>
+                            <MDBIcon onClick={() => {handleSubmit(review.id)}}fas icon="thumbs-up" size='1x'/>
+                            {user.id === review.user.id && 
+                                <MDBIcon onClick={() => props.deleteReview(review.id)}fas icon="trash-alt" size='1x'/>
+                            }                      
+                            
+                            </div>
                             
                         </div>
                     </div>

@@ -138,89 +138,87 @@ const MovieList = (props) => {
     
     
     return (  
-        <div className={`container-fluid ${props.isPannel?"movie-pannel":"movie-list"}`}>
+        <div className={`container-fluid ${props.isPannel?"search-pannel":"movie-list"}`}>
        
                 <div className="row d-flex justify-content-start m-3">
 
-                    {props.movies.slice(0,30).map((movie, index) => (
+                    {props.movies.map((movie, index) => (
                             
-                            <img onClick={() => getMovieApi(movie)} key={index} className="movie-poster image-fluid rounded" src={movie.image} alt='movie'></img>
+                            <img  onClick={() => getMovieApi(movie)} key={index} className={`${props.isPannel?"search-poster":"movie-poster"} image-fluid rounded`} src={movie.image} alt='movie'></img>
                             
                     ))}
                     <>
                     {movieSelected?
-                        <><MDBModal className='movie-modal' tabIndex='-1' show={centredModal} setShow={setCentredModal}>
-                            <MDBModalDialog centered size='lg'>
-                                <MDBModalContent className='modal-content'>
-                                    <MDBModalHeader>
-                                        <MDBModalTitle className='titles'>{movieId.title}</MDBModalTitle>
-                                        <MDBBtn
-                                            type='button'
-                                            className='btn-close'
-                                            color='none'
-                                            onClick={toggleShow}
-                                        ></MDBBtn>
-                                    </MDBModalHeader>
-                                    <MDBModalBody>
-                                        <div className='container-fluid d-flex'>
-                                            <div className='row'>
-                                                <div className='col'>
-                                                    <img className="modal-image" style={{ width: 300, height: 450 }} src={movieId.posters.posters[0].link} alt="" />
-                                                        <div className='button-col'>
-                                                            <MDBBtn title='Watch Trailer' onClick={toggleVideo}><MDBIcon fas icon="film"/></MDBBtn>
-                                                            <MDBBtnGroup >
-                                                                <MDBBtn title='Add to Favorites' onClick={submitFavMovie}><MDBIcon fas icon="star"/></MDBBtn>
-                                                                <MDBBtn title='Remove Movie from Favorites' onClick={() => deleteFavMovie(favMovie)}><MDBIcon far icon="star"/></MDBBtn>
-                                                            </MDBBtnGroup>
-                                                            <MDBBtnGroup>
-                                                                <MDBBtn title='Add to Watchlist' onClick={submitWatchList}><MDBIcon fas icon="heart"/></MDBBtn>
-                                                                <MDBBtn title='Remove from Watchlist' onClick={() => deleteWatchList(watchList)}><MDBIcon far icon="heart"/></MDBBtn>
-                                                            </MDBBtnGroup>
-                                                </div>
-                                                </div>
-                                                <div className='col'>
-                                                    <h2 className='movie-title'>{movieId.title}</h2>
-                                                    <p className='movie-plot'>{movieId.plot}</p>
-                                                    
-                                                    <Reviews movie={movieId} />
-                                                </div> 
-                                            </div>
-                                        </div>
-                                    </MDBModalBody>
-                                    <MDBModalFooter>
-                                        <MDBBtn color='secondary' onClick={toggleShow}>
-                                            Close
-                                        </MDBBtn>
-                                        
-                                    </MDBModalFooter>
-                                </MDBModalContent>
-                            </MDBModalDialog>
-                        </MDBModal><MDBModal tabIndex='-1' show={trailerModal} setShow={setTrailerModal}>
-                                <MDBModalDialog centered size='xl'>
-                                    <MDBModalContent>
+                    <><MDBModal className='movie-modal' tabIndex='-1' show={centredModal} setShow={setCentredModal}>
+                                <MDBModalDialog centered size='lg'>
+                                    <MDBModalContent className='modal-content'>
                                         <MDBModalHeader>
-                                            <MDBModalTitle>{movieId.title}</MDBModalTitle>
+                                            <MDBModalTitle className='titles'>{movieId.title}</MDBModalTitle>
                                             <MDBBtn
                                                 type='button'
                                                 className='btn-close'
                                                 color='none'
-                                                onClick={toggleVideo}
+                                                onClick={toggleShow}
                                             ></MDBBtn>
                                         </MDBModalHeader>
                                         <MDBModalBody>
-                                            <div className='video-modal'>
-                                                    <div ><iframe className='video-player'style={{ width: 1280, height: 720 }}src={movieId.trailer.linkEmbed}></iframe></div>
+                                            <div className='container-fluid d-flex'>
+                                                <div className='row'>
+                                                    <div className='col'>
+                                                        <img className="modal-image" style={{ width: 300, height: 450 }} src={movieId.posters.posters[0].link} alt="" />
+                                                        <div className='button-col'>
+                                                            <MDBBtn title='Watch Trailer' onClick={toggleVideo}><MDBIcon fas icon="film" /></MDBBtn>
+                                                            <MDBBtnGroup>
+                                                                <MDBBtn title='Add to Favorites' onClick={submitFavMovie}><MDBIcon fas icon="star" /></MDBBtn>
+                                                                <MDBBtn title='Remove Movie from Favorites' onClick={() => deleteFavMovie(favMovie)}><MDBIcon far icon="star" /></MDBBtn>
+                                                            </MDBBtnGroup>
+                                                            <MDBBtnGroup>
+                                                                <MDBBtn title='Add to Watchlist' onClick={submitWatchList}><MDBIcon fas icon="heart" /></MDBBtn>
+                                                                <MDBBtn title='Remove from Watchlist' onClick={() => deleteWatchList(watchList)}><MDBIcon far icon="heart" /></MDBBtn>
+                                                            </MDBBtnGroup>
+                                                        </div>
+                                                    </div>
+                                                    <div className='col'>
+                                                        <h2 className='movie-title'>{movieId.title}</h2>
+                                                        <p className='movie-plot'>{movieId.plot}</p>
+
+                                                        <Reviews movie={movieId} />
+                                                    </div>
                                                 </div>
+                                            </div>
                                         </MDBModalBody>
                                         <MDBModalFooter>
-                                            <MDBBtn color='secondary' onClick={toggleVideo}>
+                                            <MDBBtn color='secondary' onClick={toggleShow}>
                                                 Close
                                             </MDBBtn>
-                                            
+
                                         </MDBModalFooter>
                                     </MDBModalContent>
                                 </MDBModalDialog>
-                            </MDBModal></>
+                            </MDBModal><MDBModal tabIndex='-1' show={trailerModal} setShow={setTrailerModal}>
+                                    <MDBModalDialog centered size='xl'>
+                                        <MDBModalContent>
+                                            <MDBModalHeader>
+                                                <MDBModalTitle className='titles'>{movieId.title}</MDBModalTitle>
+                                                <MDBBtn
+                                                    type='button'
+                                                    className='btn-close'
+                                                    color='none'
+                                                    onClick={toggleVideo}
+                                                ></MDBBtn>
+                                            </MDBModalHeader>
+                                            <MDBModalBody className='video-modal'>
+                                                    <div><iframe className='video-player' style={{ width: 1280, height: 720 }} src={movieId.trailer.linkEmbed}></iframe></div>
+                                            </MDBModalBody>
+                                            <MDBModalFooter>
+                                                <MDBBtn color='secondary' onClick={toggleVideo}>
+                                                    Close
+                                                </MDBBtn>
+
+                                            </MDBModalFooter>
+                                        </MDBModalContent>
+                                    </MDBModalDialog>
+                                </MDBModal></>
                         :null}
                         </>
             </div>

@@ -15,20 +15,22 @@ li {
   /* color: white; */
   margin-bottom: 2rem;
   padding: 1.5rem 2rem;
+  display: flex;
+  justify-content: space-between;
 }
 
 .navBar button {
   /* background: transparent; */
-  border: 2px solid aqua;
-  color: aqua;
+  border: 2px solid #00D8C9;
+  color: #00D8C9;
   padding: 0.4rem 0.5rem;
 }
 
-/* .navBar button:hover {
-  background: white;
-  color: steelblue;
+.navBar button:hover {
+  background: #00D8C9;
+  color: white;
   cursor: pointer;
-} */
+}
 
 .brand {
   cursor: pointer;
@@ -36,5 +38,9 @@ li {
 }
 
 b {
-  color: aquamarine;
+  color: #00D8C9;
+}
+.logo{
+  width: 100px;
+  height: 50px; 
 }

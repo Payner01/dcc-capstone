@@ -1,3 +1,5 @@
-h3 {
-    color: #00D8C9;
+.profile-name{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
 }

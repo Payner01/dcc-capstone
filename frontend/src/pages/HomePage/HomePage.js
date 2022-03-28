@@ -12,7 +12,6 @@ const HomePage = () => {
   // The "user" value from this Hook contains the decoded logged in user information (username, first name, id)
   // The "token" value is the JWT token that you will send in the header of any request requiring authentication
   const [user, token] = useAuth();
-  const [cars, setCars] = useState([]);
   const [popMovies, setPopMovies] = useState([]);
   const [comingSoon, setComingSoon] = useState([]);
   const [topMovies, setTopMovies] = useState([]);
@@ -61,9 +60,9 @@ const HomePage = () => {
         console.log(error.message);
       }
     };
-    // getComingSoon();
+    getComingSoon();
     getPopularMovies();
-    // getTopMovies();
+    getTopMovies();
   }, [token]);
 
 

@@ -16,27 +16,11 @@ const Reviews = (props) => {
     console.log(props.movieReviews)
 
     async function getReviews(){
-
-        // let newData = []
-        // let counter = 0
         let response = await axios.get(`http://127.0.0.1:8000/api/reviews/${props.movie.id}/reviews/`, { headers: {Authorization: 'Bearer ' + token}});
-        // response.data.forEach((data) => {
-        //     console.log(data.id)
-        //     console.log(likes)
-        //     likes.forEach((like) => {if (like.review_id === data.id) {counter++}})
-        //     newData.push({
-        //         id: data.id,
-        //         movie_id: data.movie_id,
-        //         text: data.text,
-        //         user: data.user,
-        //         numberOfLikes: counter
-        //     })
-        //     counter = 0
-        // })
-        // setMovieReviews(newData.reverse())
         setMovieReviews(response.data.reverse());
         console.log(response.data)
     }
+
     async function deleteReview(id){
         try {
         let response = await axios.delete(`http://127.0.0.1:8000/api/reviews/delete/${id}/`, { headers: {Authorization: 'Bearer ' + token}});
@@ -47,6 +31,8 @@ const Reviews = (props) => {
             console.log(ex.response);
         }
     }
+
+    ////////////// Likes Section in progress //////////////////
     async function postLike(review){
         getPostLikes();
         console.log(review.review_id)
@@ -60,11 +46,9 @@ const Reviews = (props) => {
             } catch (ex) {
                 console.log(ex.response)
             }
-        }
-        
-        
-        
-    }                      
+        } 
+    }  
+
     async function getPostLikes(){
         try {
             let response = await axios.get(`http://127.0.0.1:8000/api/reviews/likesDislike/`, { headers: {Authorization: 'Bearer ' + token}});
@@ -84,7 +68,7 @@ const Reviews = (props) => {
     return ( 
         <div className='review-section'>
             <ReviewForm movie={props.movie} getReviews={getReviews} />
-            <ReviewList movieReviews={movieReviews} postLike={postLike} getPostLikes={getPostLikes} deleteReview={deleteReview}/>
+            <ReviewList movieReviews={movieReviews} postLike={postLike}  deleteReview={deleteReview}/>
         </div>
      );
 }

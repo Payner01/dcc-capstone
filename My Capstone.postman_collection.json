@@ -1,0 +1,326 @@
+{
+	"info": {
+		"_postman_id": "94295958-db30-4f3c-9bc6-abd501d4f5a8",
+		"name": "My Capstone",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "IMDb",
+			"item": [
+				{
+					"name": "Get List of Popular Movies",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://imdb-api.com/en/API/MostPopularMovies/APIKey",
+							"protocol": "https",
+							"host": [
+								"imdb-api",
+								"com"
+							],
+							"path": [
+								"en",
+								"API",
+								"MostPopularMovies",
+								"APIKey"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get_Single_Movie_Details",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://imdb-api.com/en/API/Title/Key/MovieId/Posters,Trailer",
+							"protocol": "https",
+							"host": [
+								"imdb-api",
+								"com"
+							],
+							"path": [
+								"en",
+								"API",
+								"Title",
+								"Key",
+								"MovieId",
+								"Posters,Trailer"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Search_All_Movies",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://imdb-api.com/en/API/SearchMovie/Key/searchterm",
+							"protocol": "https",
+							"host": [
+								"imdb-api",
+								"com"
+							],
+							"path": [
+								"en",
+								"API",
+								"SearchMovie",
+								"Key",
+								"searchterm"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get_Coming_Soon",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://imdb-api.com/en/API/ComingSoon/${IMDb_APIKey}",
+							"protocol": "https",
+							"host": [
+								"imdb-api",
+								"com"
+							],
+							"path": [
+								"en",
+								"API",
+								"ComingSoon",
+								"${IMDb_APIKey}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get_Top_250_Movies",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://imdb-api.com/en/API/Top250Movies/${IMDb_APIKey}",
+							"protocol": "https",
+							"host": [
+								"imdb-api",
+								"com"
+							],
+							"path": [
+								"en",
+								"API",
+								"Top250Movies",
+								"${IMDb_APIKey}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Reviews",
+			"item": [
+				{
+					"name": "Get_Reviews",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjQ4NjgzNzU0LCJpYXQiOjE2NDc4MTk3NTQsImp0aSI6IjIyZTdjN2ZlMmY0YjRlNDQ5ZTc5YTc3NTgwZTI5ZmY1IiwidXNlcl9pZCI6MSwidXNlcm5hbWUiOiJicnljZXBheW5lIiwiZmlyc3RfbmFtZSI6IiJ9.xX1Z_BTElxpdcCVBl__0XTenn02rt8XcuTo43tyU5J4",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"movie_id\": [\r\n        \"tt8097030\"\r\n    ],\r\n    \"text\": [\r\n        \"Test Review\"\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/reviews/movie id/reviews/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"reviews",
+								"movie id",
+								"reviews",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete_Review",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/reviews/delete/reviewid/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"reviews",
+								"delete",
+								"reviewid",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "FavoriteMovies/WatchList",
+			"item": [
+				{
+					"name": "Add_Movie_To_Favorites",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjQ4NzU4NjYzLCJpYXQiOjE2NDc4OTQ2NjMsImp0aSI6IjFkZjMwOGEwNTVhYjRlYmZiNjZmMWE0ODNhM2RkNWRkIiwidXNlcl9pZCI6MSwidXNlcm5hbWUiOiJicnljZXBheW5lIiwiZmlyc3RfbmFtZSI6IiJ9.O6ovgmANc5cSQVCk1i98281wad0guArPen-1juA7ASE",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"movie_id\": \r\n        \"testmovie\"\r\n    \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/movies/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"movies",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get_Favorite_Movies",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjQ4ODQ4OTYwLCJpYXQiOjE2NDc5ODQ5NjAsImp0aSI6IjMzNjMxYjRmNmRjZDQyN2Y5MjQ4OGY1NWM3NDRjOTMxIiwidXNlcl9pZCI6MSwidXNlcm5hbWUiOiJicnljZXBheW5lIiwiZmlyc3RfbmFtZSI6IiJ9.ygIYT6wa5ZMjSKn1vJZdLpLKdacfRXw3FpFz1dFppiE",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/movies/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"movies",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get_Watch_List",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/movies/watchlist/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"movies",
+								"watchlist",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add_Movie_To_Watch_List",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/movies/watchlist/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"movies",
+								"watchlist",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
