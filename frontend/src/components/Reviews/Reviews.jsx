@@ -33,31 +33,33 @@ const Reviews = (props) => {
     }
 
     ////////////// Likes Section in progress //////////////////
-    async function postLike(review){
-        getPostLikes();
-        console.log(review.review_id)
-        if (likes.some(data => data.user.id === review.user.user_id && data.review_id === review.review_id)){
-        }else {
-            console.log(likes)
-            try {
+    // async function postLike(review){
+    //     getPostLikes();
+    //     console.log(review.review_id)
+    //     if (likes.some(data => data.user.id === review.user.user_id && data.review_id === review.review_id)){
+    //     }else {
+    //         console.log(likes)
+    //         try {
                 
-                let response = await axios.post(`http://127.0.0.1:8000/api/reviews/likesDislike/`,  review, { headers: {Authorization: 'Bearer ' + token}});
-                console.log(response)
-            } catch (ex) {
-                console.log(ex.response)
-            }
-        } 
-    }  
+    //             let response = await axios.post(`http://127.0.0.1:8000/api/reviews/likesDislike/`,  review, { headers: {Authorization: 'Bearer ' + token}});
+    //             console.log(response)
+    //         } catch (ex) {
+    //             console.log(ex.response)
+    //         }
+    //     } 
+    // }  
 
-    async function getPostLikes(){
+    async function getLikesDislikes(id){
         try {
-            let response = await axios.get(`http://127.0.0.1:8000/api/reviews/likesDislike/`, { headers: {Authorization: 'Bearer ' + token}});
-            setLikes(response.data)
+            let response = await axios.get(`http://127.0.0.1:8000/api/reviews/likesDislike/${id}`, { headers: {Authorization: 'Bearer ' + token}});
+            // setLikes(response.data)
             console.log(response.data)
         } catch (ex) {
             console.log(ex.response)
         }
     }
+
+
 
     useEffect(() => {
         getReviews();
@@ -68,7 +70,7 @@ const Reviews = (props) => {
     return ( 
         <div className='review-section'>
             <ReviewForm movie={props.movie} getReviews={getReviews} />
-            <ReviewList movieReviews={movieReviews} postLike={postLike}  deleteReview={deleteReview}/>
+            <ReviewList movieId={props.movie.id} movieReviews={movieReviews} getReviews={getReviews} deleteReview={deleteReview}/>
         </div>
      );
 }

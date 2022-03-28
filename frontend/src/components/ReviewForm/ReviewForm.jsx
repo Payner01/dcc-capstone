@@ -19,6 +19,8 @@ const ReviewForm = (props) => {
             user: user,
             text: review,
             movie_id: props.movie.id,
+            likes: 0,
+            dislikes: 0
             
 
         }
