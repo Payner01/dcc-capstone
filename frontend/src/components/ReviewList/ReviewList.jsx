@@ -18,6 +18,8 @@ const Reviews = (props) => {
 
     
     console.log(props.movieReviews)
+    console.log(user)
+   
 
     // async function getLikesDislikes(id){
     //     try {
@@ -126,9 +128,9 @@ const Reviews = (props) => {
                             
                             <MDBIcon onClick={() => {handleDislikeSubmit(review)}}fas icon="thumbs-down" size='1x'/>
                             <h3>{review.dislikes}</h3>
-                            {user.user_id === review.user.id && 
+                            {user.id === review.user.id && 
+                    
                             <MDBIcon onClick={() => props.deleteReview(review.id)}fas icon="trash-alt" size='1x'/>}
-                            
                             </div>
                             
                         </div>

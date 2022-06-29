@@ -21,12 +21,8 @@ const ReviewForm = (props) => {
             movie_id: props.movie.id,
             likes: 0,
             dislikes: 0
-            
-
         }
         postReview(newReview);
-        
-
     }
 
     

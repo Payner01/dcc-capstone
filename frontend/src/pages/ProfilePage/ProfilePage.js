@@ -20,7 +20,7 @@ const ProfilePage = () => {
   useEffect(() => {
     getFavorites();
     getWatchList();
-  }, [token]);
+  }, [token]);  
 
   async function getFavorites () {
     let response = await axios.get(favMovieCall,{ headers: {Authorization: 'Bearer ' + token}});
@@ -40,9 +40,9 @@ const ProfilePage = () => {
       <h1 className="profile-name">{user.first_name}'s Lists</h1>
       <div className="movie-lists">
         <h1>Favorites</h1>
-        <MovieList getFavorites={getFavorites} getWatchList={getWatchList} movies={favMovies} />
+        <MovieList getFavorites={getFavorites} movies={favMovies} /> 
         <h1>Watch List</h1>
-        <MovieList movies={watchList} />
+        <MovieList getWatchList={getWatchList} movies={watchList} />
       </div>
     </div>
   );

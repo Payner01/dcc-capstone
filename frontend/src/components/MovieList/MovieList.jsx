@@ -33,12 +33,16 @@ const MovieList = (props) => {
     const [movieId, setmovieId] = useState(null);
     const [favMovie, setFavMovie] = useState(null);
     const [watchList, setWatchList] = useState(null);
+    // const [movieRemoved, setMovieRemoved] = useState(false);
     
     const toggleShow = () => setCentredModal(!centredModal);
     const toggleVideo = () => setTrailerModal(!trailerModal);
     
 
     console.log(movieId); // shows data of selected movie
+
+    //////////////////// Gets the movie data from the API ///////////////////////
+    /////////////////// find better way to determine what data type is input /////////////////
 
     async function getMovieApi(movie) { //movie.id
         let test = movie.resultType || movie.year
@@ -82,6 +86,7 @@ const MovieList = (props) => {
             console.log(response);
             console.log(response.data);
             setFavMovie(response.data.id);
+            alert("Movie Added to Favorites")
 
 
         } catch (ex) {
@@ -92,9 +97,9 @@ const MovieList = (props) => {
     async function deleteFavMovie(id){
         let response = await axios.delete(`http://127.0.0.1:8000/api/movies/deletemovie/${id}/`, { headers: {Authorization: 'Bearer ' + token}});
         console.log(response);
+        alert("Movie Removed from Favorites")
         setSelectedMovieBool(false);
-        
-        
+        props.getFavorites();
         
     }
 ///////////////////// Movie Watch List//////////////////////
@@ -116,7 +121,7 @@ const MovieList = (props) => {
             console.log(response);
             console.log(response.data);
             setWatchList(response.data.id);
-
+            alert("Movie Added to Watch List")
         } catch (ex) {
             console.log(ex.response);
         }
@@ -127,7 +132,8 @@ const MovieList = (props) => {
         let response = await axios.delete(`http://127.0.0.1:8000/api/movies/deletewatchlist/${id}/`, { headers: {Authorization: 'Bearer ' + token}});
         console.log(response);
         setSelectedMovieBool(false);
-        
+        alert("Movie Removed from Watch List")
+        props.getWatchList();
         
         
         }catch (ex) {
@@ -208,7 +214,7 @@ const MovieList = (props) => {
                                                 ></MDBBtn>
                                             </MDBModalHeader>
                                             <MDBModalBody className='video-modal'>
-                                                    <div><iframe className='video-player' style={{ width: 1280, height: 720 }} src={movieId.trailer.linkEmbed}></iframe></div>
+                                                    <div className='video'><iframe className='video-player' style={{ width: 1280, height: 720 }} src={movieId.trailer.linkEmbed}></iframe></div>
                                             </MDBModalBody>
                                             <MDBModalFooter>
                                                 <MDBBtn color='secondary' onClick={toggleVideo}>
